@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GalgjeWPF
 {
@@ -20,12 +12,22 @@ namespace GalgjeWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<string> list1 = new List<string>();
+        string path = Directory.GetCurrentDirectory();
+        string[] pathSplit;
+        string finalPath;
+        List<string> wordList;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            list1.add();
+            pathSplit = path.Split("\\bin");
+
+            finalPath = pathSplit[0] + "\\assets\\wordList.txt";
+
+            wordList = File.ReadAllLines(finalPath).ToList();
+
+            MessageBox.Show(wordList[0]);
         }
 
         private void BtnClose_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
