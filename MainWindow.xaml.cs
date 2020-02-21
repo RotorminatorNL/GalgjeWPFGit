@@ -20,9 +20,12 @@ namespace GalgjeWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<string> list1 = new List<string>();
         public MainWindow()
         {
             InitializeComponent();
+
+            list1.add();
         }
 
         private void BtnClose_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
