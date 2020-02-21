@@ -1,0 +1,23 @@
+﻿<Window x:Class="GalgjeWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GalgjeWPF"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Title="MainWindow" Height="1080" Width="1920">
+    <Grid>
+        <!-- Close button -->
+        <Border Name="BtnClose" Width="75" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#D50000" MouseLeftButtonUp="BtnClose_MouseLeftButtonUp" MouseEnter="BtnClose_MouseEnter" MouseLeave="BtnClose_MouseLeave">
+            <TextBlock Text="X" Margin="0,0,0,2" FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
+        </Border>
+
+        <!-- Minimize button -->
+        <Border Name="BtnMinimize" Background="#EEEEEE" Margin="0,0,75,0" Width="75" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" MouseLeftButtonUp="BtnMinimize_MouseLeftButtonUp" MouseEnter="BtnMinimize_MouseEnter" MouseLeave="BtnMinimize_MouseLeave">
+            <TextBlock Name="txtMinimize" Text="-" Margin="0,-11,0,0" FontSize="36" Height="40" Width="75" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="LightGray" />
+        </Border>
+    </Grid>
+</Window>
