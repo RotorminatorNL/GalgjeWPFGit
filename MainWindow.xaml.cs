@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -12,23 +13,55 @@ namespace GalgjeWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        string path = Directory.GetCurrentDirectory();
-        string[] pathSplit;
-        string finalPath;
-        List<string> wordList;
+        /*
+         * Waarom WordCollection als eigen class, omdat ik dan 1x de list wordCollection hoef te vullen 
+         * en vervolgens de list in verschillende/meerdere classes kan gebruiken. 
+        */
+        List<WordCollection> wordCollection = new List<WordCollection>();
+
+        /*
+         * De Random functie is nodig voor een randomized getal (index) tussen 0 en het totaal aantal woorden van WordCollection.
+        */
+        Random rnd = new Random();
+
+        /* 
+         * Dat randomized getal (index) staat verbonden met een woord in de WordCollection.
+         * rndWord slaat dat woord op.
+        */ 
+        string rndWord;
+
 
         public MainWindow()
         {
             InitializeComponent();
 
-            pathSplit = path.Split("\\bin");
+            string pathWordListFile = $"{Directory.GetCurrentDirectory()}\\..\\..\\..\\assets\\wordList.txt";
+            List<string> wordList = File.ReadAllText(pathWordListFile).Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 
-            finalPath = pathSplit[0] + "\\assets\\wordList.txt";
+            foreach (string word in wordList)
+            {
+                WordCollection newWord = new WordCollection
+                {
+                    Word = word
+                };
 
-            wordList = File.ReadAllLines(finalPath).ToList();
+                wordCollection.Add(newWord);
+            }
 
-            MessageBox.Show(wordList[0]);
+            int rndIndex = rnd.Next(0, (wordCollection.Count - 1));
+            rndWord = wordCollection[rndIndex].Word;
         }
+
+        /// <summary>
+        /// This explain the functionality of this method
+        /// </summary>
+        /// <param name="woord">This woord parameters is being used for splitting a sentence</param>
+        private void DitIsEenVoorbeeld(string woord)
+        {
+
+        }
+
+
 
         private void BtnClose_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
