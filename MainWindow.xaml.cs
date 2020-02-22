@@ -31,7 +31,7 @@ namespace GalgjeWPF
             string pathWordListFile = $"{Directory.GetCurrentDirectory()}\\..\\..\\..\\assets\\wordList.txt";
 
             // The List<string> wordList stores everything inside wordList.txt and splits it on the ','.
-            List<string> wordList = File.ReadAllText(pathWordListFile).Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> wordList = File.ReadAllText(pathWordListFile).Split(", ", StringSplitOptions.RemoveEmptyEntries).ToList();
 
             // Storing every word in WordCollection
             foreach (string word in wordList)
@@ -46,6 +46,8 @@ namespace GalgjeWPF
 
             // The Random function and rndWord in action.
             rndWord = wordCollection[rnd.Next(0, (wordCollection.Count - 1))].Word;
+
+            char[] arrLetters = WordToLetters(rndWord);
         }
 
         // Begin BtnClose (customized close button (because the default one is ugly))
@@ -84,5 +86,14 @@ namespace GalgjeWPF
             txtMinimize.Foreground = Brushes.LightGray;
         }
         // End BtnMinimize
+
+        /// <summary>
+        /// This function will split the incoming word (string) into letters (char[])
+        /// </summary>
+        /// <param name="word">Enter the word that you want to split</param>
+        public char[] WordToLetters(string word)
+        {
+            return word.ToCharArray();
+        }
     }
 }
