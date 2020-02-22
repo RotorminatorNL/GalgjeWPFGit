@@ -13,23 +13,15 @@ namespace GalgjeWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        /*
-         * Waarom WordCollection als eigen class, omdat ik dan 1x de list wordCollection hoef te vullen 
-         * en vervolgens de list in verschillende/meerdere classes kan gebruiken. 
-        */
+        
+        // WordCollection speaks for itself, you could call it the library of words.
         List<WordCollection> wordCollection = new List<WordCollection>();
 
-        /*
-         * De Random functie is nodig voor een randomized getal (index) tussen 0 en het totaal aantal woorden van WordCollection.
-        */
+        // The Random function is used to get a random generated number between 0 and the total amount of words (minus 1, because index starts at 0).
         Random rnd = new Random();
 
-        /* 
-         * Dat randomized getal (index) staat verbonden met een woord in de WordCollection.
-         * rndWord slaat dat woord op.
-        */ 
+        // The string rndWord collects the random word. 
         string rndWord;
-
 
         public MainWindow()
         {
@@ -55,13 +47,11 @@ namespace GalgjeWPF
         /// <summary>
         /// This explain the functionality of this method
         /// </summary>
-        /// <param name="woord">This woord parameters is being used for splitting a sentence</param>
+        /// <param name="woord">This parameter is being used for splitting a sentence</param>
         private void DitIsEenVoorbeeld(string woord)
         {
 
         }
-
-
 
         private void BtnClose_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
