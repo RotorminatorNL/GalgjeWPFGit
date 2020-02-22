@@ -17,19 +17,23 @@ namespace GalgjeWPF
         // WordCollection speaks for itself, you could call it the library of words.
         List<WordCollection> wordCollection = new List<WordCollection>();
 
-        // The Random function is used to get a random generated number between 0 and the total amount of words (minus 1, because index starts at 0).
+        // The Random function will be used to get a random generated number between 0 and the total amount of words (minus 1, because index starts at 0).
         Random rnd = new Random();
 
-        // The string rndWord collects the random word. 
+        // The string rndWord stores the random word. 
         string rndWord;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            // The string pathWordListFile stores the path to wordList.txt
             string pathWordListFile = $"{Directory.GetCurrentDirectory()}\\..\\..\\..\\assets\\wordList.txt";
+
+            // The List<string> wordList stores everything inside wordList.txt and splits it on the ','.
             List<string> wordList = File.ReadAllText(pathWordListFile).Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
 
+            // Storing every word in WordCollection
             foreach (string word in wordList)
             {
                 WordCollection newWord = new WordCollection
@@ -40,19 +44,11 @@ namespace GalgjeWPF
                 wordCollection.Add(newWord);
             }
 
-            int rndIndex = rnd.Next(0, (wordCollection.Count - 1));
-            rndWord = wordCollection[rndIndex].Word;
+            // The Random function and rndWord in action.
+            rndWord = wordCollection[rnd.Next(0, (wordCollection.Count - 1))].Word;
         }
 
-        /// <summary>
-        /// This explain the functionality of this method
-        /// </summary>
-        /// <param name="woord">This parameter is being used for splitting a sentence</param>
-        private void DitIsEenVoorbeeld(string woord)
-        {
-
-        }
-
+        // Begin BtnClose (customized close button (because the default one is ugly))
         private void BtnClose_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Application.Current.Shutdown();
@@ -67,7 +63,9 @@ namespace GalgjeWPF
         {
             BtnClose.Opacity = 1;
         }
+        // End BtnClose
 
+        // Begin BtnMinimize (customized minimize button (because the default one is ugly))
         private void BtnMinimize_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -85,5 +83,6 @@ namespace GalgjeWPF
             BtnMinimize.Background = (Brush)bc.ConvertFrom("#EEEEEE");
             txtMinimize.Foreground = Brushes.LightGray;
         }
+        // End BtnMinimize
     }
 }
