@@ -63,17 +63,29 @@ namespace GalgjeWPF
 
             for (int i = 0; i < alphabet.Length; i++)
             {
-                newBorder = new Border();
-                newLabel = new Label();
+                newLabel = new Label
+                {
+                    Content = alphabet[i],
+                    FontFamily = new FontFamily("Century Gothic"),
+                    FontSize = 50,
+                    Padding = new Thickness(0)
+                };
 
-                newBorder.Name = $"letter_{alphabet[i]}";
-                newBorder.Background = (Brush)bc.ConvertFrom("#BDBDBD");
-                newBorder.BorderBrush = (Brush)bc.ConvertFrom("#757575");
-                newBorder.BorderThickness = new Thickness(2);
-                newBorder.CornerRadius = new CornerRadius(10);
-                newBorder.Height = 75;
-                newBorder.Width = 75;
-                newBorder.Margin = new Thickness(10);
+                newLabel.SetValue(HorizontalContentAlignmentProperty, HorizontalAlignment.Center);
+                newLabel.SetValue(VerticalContentAlignmentProperty, VerticalAlignment.Center);
+
+                newBorder = new Border
+                {
+                    Name = $"letter_{alphabet[i]}",
+                    Background = (Brush)bc.ConvertFrom("#BDBDBD"),
+                    BorderBrush = (Brush)bc.ConvertFrom("#757575"),
+                    BorderThickness = new Thickness(2),
+                    CornerRadius = new CornerRadius(10),
+                    Height = 75,
+                    Width = 75,
+                    Margin = new Thickness(10),
+                    Child = newLabel
+                };
 
                 if (column == 10)
                 {
@@ -95,14 +107,7 @@ namespace GalgjeWPF
                     Grid.SetRow(newBorder, 2);
                 }
 
-                newLabel.Content = alphabet[i];
-                newLabel.FontFamily = new FontFamily("Century Gothic");
-                newLabel.FontSize = 50;
-                newLabel.SetValue(HorizontalContentAlignmentProperty, HorizontalAlignment.Center);
-                newLabel.SetValue(VerticalContentAlignmentProperty, VerticalAlignment.Center);
-                newLabel.Padding = new Thickness(0);
-
-                newBorder.Child = newLabel;
+                newBorder.MouseLeftButtonUp += new MouseButtonEventHandler(PressedLetter);
 
                 grdChooseLetter.Children.Add(newBorder);
             }
@@ -185,30 +190,40 @@ namespace GalgjeWPF
 
             for (int i = 0; i < listLetters.Count; i++)
             {
-                newBorder = new Border();
-                newLabel = new Label();
-
-                newBorder.Name = $"guessWordLetter_{listLetters[i]}";
-                newBorder.Background = (Brush)bc.ConvertFrom("#BDBDBD");
-                newBorder.BorderBrush = (Brush)bc.ConvertFrom("#757575");
-                newBorder.BorderThickness = new Thickness(2);
-                newBorder.CornerRadius = new CornerRadius(10);
-                newBorder.Height = 75;
-                newBorder.Width = 75;
-                newBorder.Margin = new Thickness(15,0,15,0);
-
-                newLabel.Content = listLetters[i].ToUpper();
-                newLabel.FontFamily = new FontFamily("Century Gothic");
-                newLabel.FontSize = 50;
+                newLabel = new Label
+                {
+                    Content = listLetters[i].ToUpper(),
+                    FontFamily = new FontFamily("Century Gothic"),
+                    FontSize = 50,
+                    Padding = new Thickness(0),
+                    Opacity = 0
+                };
+            
                 newLabel.SetValue(HorizontalContentAlignmentProperty, HorizontalAlignment.Center);
                 newLabel.SetValue(VerticalContentAlignmentProperty, VerticalAlignment.Center);
-                newLabel.Padding = new Thickness(0);
-                newLabel.Opacity = 0;
 
-                newBorder.Child = newLabel;
+                newBorder = new Border
+                {
+
+                    Name = $"guessWordLetter_{listLetters[i]}",
+                    Background = (Brush)bc.ConvertFrom("#BDBDBD"),
+                    BorderBrush = (Brush)bc.ConvertFrom("#757575"),
+                    BorderThickness = new Thickness(2),
+                    CornerRadius = new CornerRadius(10),
+                    Height = 75,
+                    Width = 75,
+                    Margin = new Thickness(15, 0, 15, 0),
+                    Child = newLabel
+                };
 
                 dpLetters.Children.Add(newBorder);
             }
+        }
+
+        public void PressedLetter(object sender, EventArgs e)
+        {
+            Border test = (Border)sender;
+            MessageBox.Show($"yay? {test.Name}");
         }
     }
 }
