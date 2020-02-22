@@ -20,9 +20,6 @@ namespace GalgjeWPF
         // The Random function will be used to get a random generated number between 0 and the total amount of words (minus 1, because index starts at 0).
         Random rnd = new Random();
 
-        // The string rndWord stores the random word. 
-        string rndWord;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -44,10 +41,7 @@ namespace GalgjeWPF
                 wordCollection.Add(newWord);
             }
 
-            // The Random function and rndWord in action.
-            rndWord = wordCollection[rnd.Next(0, (wordCollection.Count - 1))].Word;
-
-            char[] arrLetters = WordToLetters(rndWord);
+            CreateGame();
         }
 
         // Begin BtnClose (customized close button (because the default one is ugly))
@@ -88,12 +82,28 @@ namespace GalgjeWPF
         // End BtnMinimize
 
         /// <summary>
-        /// This function will split the incoming word (string) into letters (char[])
+        /// This function calls every function to create and start a game
+        /// </summary>
+        public void CreateGame()
+        {
+            // The string rndWord stores the random word.
+            string rndWord = wordCollection[rnd.Next(0, (wordCollection.Count - 1))].Word;
+
+            List<string> listLetters = WordToLetters(rndWord);
+        }
+
+        /// <summary>
+        /// This function will split the incoming word (string) into letters (List<string>)
         /// </summary>
         /// <param name="word">Enter the word that you want to split</param>
-        public char[] WordToLetters(string word)
+        public List<string> WordToLetters(string word)
         {
-            return word.ToCharArray();
+            List<string> listLetters = new List<string>();
+            foreach (var letter in word.ToCharArray())
+            {
+                listLetters.Add(letter.ToString());
+            }
+            return listLetters;
         }
     }
 }

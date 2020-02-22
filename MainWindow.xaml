@@ -19,5 +19,15 @@
         <Border Name="BtnMinimize" Background="#EEEEEE" Margin="0,0,75,0" Width="75" Height="30" HorizontalAlignment="Right" VerticalAlignment="Top" MouseLeftButtonUp="BtnMinimize_MouseLeftButtonUp" MouseEnter="BtnMinimize_MouseEnter" MouseLeave="BtnMinimize_MouseLeave">
             <TextBlock Name="txtMinimize" Text="-" Margin="0,-11,0,0" FontSize="36" Height="40" Width="75" TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="LightGray" />
         </Border>
+        
+        <!-- Title -->
+        <Label Content="Welkom bij Galgje" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" FontFamily="Century Gothic"/>
+
+        <!-- Content -->
+        <Border HorizontalAlignment="Center" VerticalAlignment="Top" Height="300" Width="1750" Margin="0,175,0,0" CornerRadius="25"  Background="#00B0FF">
+            <DockPanel Name="dpLetters" HorizontalAlignment="Center" VerticalAlignment="Center">
+            </DockPanel>
+        </Border>
+        
     </Grid>
 </Window>
