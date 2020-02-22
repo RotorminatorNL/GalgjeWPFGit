@@ -25,6 +25,8 @@ namespace GalgjeWPF
         {
             InitializeComponent();
 
+            CreateLetters();
+
             // The string pathWordListFile stores the path to wordList.txt
             string pathWordListFile = $"{Directory.GetCurrentDirectory()}\\..\\..\\..\\assets\\wordList.txt";
 
@@ -43,6 +45,67 @@ namespace GalgjeWPF
             }
 
             CreateGame();
+        }
+
+        /// <summary>
+        /// This function will generate the letters (which you'll press to guess) on screen
+        /// </summary>
+        public void CreateLetters()
+        {
+            string[] alphabet = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+            int column = 0;
+            int lastColumn = 2;
+
+            Border newBorder;
+            Label newLabel;
+
+            var bc = new BrushConverter();
+
+            for (int i = 0; i < alphabet.Length; i++)
+            {
+                newBorder = new Border();
+                newLabel = new Label();
+
+                newBorder.Name = $"letter_{alphabet[i]}";
+                newBorder.Background = (Brush)bc.ConvertFrom("#BDBDBD");
+                newBorder.BorderBrush = (Brush)bc.ConvertFrom("#757575");
+                newBorder.BorderThickness = new Thickness(2);
+                newBorder.CornerRadius = new CornerRadius(10);
+                newBorder.Height = 75;
+                newBorder.Width = 75;
+                newBorder.Margin = new Thickness(10);
+
+                if (column == 10)
+                {
+                    column = 0;
+                }
+
+                if (i < 10)
+                {
+                    Grid.SetColumn(newBorder, column++);
+                    Grid.SetRow(newBorder, 0);
+                }
+                else if (i < 20)
+                {
+                    Grid.SetColumn(newBorder, column++);
+                    Grid.SetRow(newBorder, 1);
+                } else
+                {
+                    Grid.SetColumn(newBorder, lastColumn++);
+                    Grid.SetRow(newBorder, 2);
+                }
+
+                newLabel.Content = alphabet[i];
+                newLabel.FontFamily = new FontFamily("Century Gothic");
+                newLabel.FontSize = 50;
+                newLabel.SetValue(HorizontalContentAlignmentProperty, HorizontalAlignment.Center);
+                newLabel.SetValue(VerticalContentAlignmentProperty, VerticalAlignment.Center);
+                newLabel.Padding = new Thickness(0);
+
+                newBorder.Child = newLabel;
+
+                grdChooseLetter.Children.Add(newBorder);
+            }
         }
 
         // Begin BtnClose (customized close button (because the default one is ugly))
@@ -125,7 +188,7 @@ namespace GalgjeWPF
                 newBorder = new Border();
                 newLabel = new Label();
 
-                newBorder.Name = $"letterBorder_ID{i}";
+                newBorder.Name = $"guessWordLetter_{listLetters[i]}";
                 newBorder.Background = (Brush)bc.ConvertFrom("#BDBDBD");
                 newBorder.BorderBrush = (Brush)bc.ConvertFrom("#757575");
                 newBorder.BorderThickness = new Thickness(2);
@@ -139,7 +202,7 @@ namespace GalgjeWPF
                 newLabel.FontSize = 50;
                 newLabel.SetValue(HorizontalContentAlignmentProperty, HorizontalAlignment.Center);
                 newLabel.SetValue(VerticalContentAlignmentProperty, VerticalAlignment.Center);
-                newLabel.Padding = new Thickness(0,0,0,0);
+                newLabel.Padding = new Thickness(0);
                 newLabel.Opacity = 0;
 
                 newBorder.Child = newLabel;
