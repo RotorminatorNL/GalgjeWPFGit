@@ -86,10 +86,12 @@ namespace GalgjeWPF
         /// </summary>
         public void CreateGame()
         {
-            // rndWord is only here to keep clean.
+            // rndWord is only here to keep it clean.
             string rndWord = wordCollection[rnd.Next(0, (wordCollection.Count - 1))].Word;
 
             List<string> listLetters = WordToLetters(rndWord);
+
+            LettersOnScreen(listLetters);
         }
 
         /// <summary>
@@ -104,6 +106,15 @@ namespace GalgjeWPF
                 listLetters.Add(letter.ToString());
             }
             return listLetters;
+        }
+
+        /// <summary>
+        /// This function will show the amount of letters on screen
+        /// </summary>
+        /// <param name="listLetters">The list of letters of the word that needs to be guessed</param>
+        public void LettersOnScreen(List<string> listLetters)
+        {
+
         }
     }
 }
