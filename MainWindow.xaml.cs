@@ -86,14 +86,14 @@ namespace GalgjeWPF
         /// </summary>
         public void CreateGame()
         {
-            // The string rndWord stores the random word.
+            // rndWord is only here to keep clean.
             string rndWord = wordCollection[rnd.Next(0, (wordCollection.Count - 1))].Word;
 
             List<string> listLetters = WordToLetters(rndWord);
         }
 
         /// <summary>
-        /// This function will split the incoming word (string) into letters (List<string>)
+        /// This function will splits the incoming word (string) and returns the letters (List<string>)
         /// </summary>
         /// <param name="word">Enter the word that you want to split</param>
         public List<string> WordToLetters(string word)
