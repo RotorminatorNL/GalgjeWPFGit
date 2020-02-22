@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -109,12 +110,42 @@ namespace GalgjeWPF
         }
 
         /// <summary>
-        /// This function will show the amount of letters on screen
+        /// This function will create a field foreach letter
         /// </summary>
         /// <param name="listLetters">The list of letters of the word that needs to be guessed</param>
         public void LettersOnScreen(List<string> listLetters)
         {
+            Border newBorder;
+            Label newLabel;
 
+            var bc = new BrushConverter();
+
+            for (int i = 0; i < listLetters.Count; i++)
+            {
+                newBorder = new Border();
+                newLabel = new Label();
+
+                newBorder.Name = $"letterBorder_ID{i}";
+                newBorder.Background = (Brush)bc.ConvertFrom("#BDBDBD");
+                newBorder.BorderBrush = (Brush)bc.ConvertFrom("#757575");
+                newBorder.BorderThickness = new Thickness(2);
+                newBorder.CornerRadius = new CornerRadius(10);
+                newBorder.Height = 75;
+                newBorder.Width = 75;
+                newBorder.Margin = new Thickness(15,0,15,0);
+
+                newLabel.Content = listLetters[i].ToUpper();
+                newLabel.FontFamily = new FontFamily("Century Gothic");
+                newLabel.FontSize = 50;
+                newLabel.SetValue(HorizontalContentAlignmentProperty, HorizontalAlignment.Center);
+                newLabel.SetValue(VerticalContentAlignmentProperty, VerticalAlignment.Center);
+                newLabel.Padding = new Thickness(0,0,0,0);
+                newLabel.Opacity = 0;
+
+                newBorder.Child = newLabel;
+
+                dpLetters.Children.Add(newBorder);
+            }
         }
     }
 }
