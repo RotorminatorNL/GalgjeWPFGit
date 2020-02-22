@@ -58,7 +58,6 @@ namespace GalgjeWPF
 
             Border newBorder;
             Label newLabel;
-
             var bc = new BrushConverter();
 
             for (int i = 0; i < alphabet.Length; i++)
@@ -160,7 +159,7 @@ namespace GalgjeWPF
 
             List<string> listLetters = WordToLetters(rndWord);
 
-            LettersOnScreen(listLetters);
+            CreateFields(listLetters);
         }
 
         /// <summary>
@@ -181,11 +180,10 @@ namespace GalgjeWPF
         /// This function will create a field foreach letter
         /// </summary>
         /// <param name="listLetters">The list of letters of the word that needs to be guessed</param>
-        public void LettersOnScreen(List<string> listLetters)
+        public void CreateFields(List<string> listLetters)
         {
             Border newBorder;
             Label newLabel;
-
             var bc = new BrushConverter();
 
             for (int i = 0; i < listLetters.Count; i++)
@@ -220,10 +218,37 @@ namespace GalgjeWPF
             }
         }
 
+        /// <summary>
+        /// This function will be activated if the player presses one of the generated letters
+        /// </summary>
         public void PressedLetter(object sender, EventArgs e)
         {
-            Border test = (Border)sender;
-            MessageBox.Show($"yay? {test.Name}");
+            Border bdrPressedLetter = (Border)sender;
+            Label lblPressedLetter = (Label)bdrPressedLetter.Child;
+
+            Border bdrLetterToGuess;
+            Label lblLetterToGuessChild;
+
+            var bc = new BrushConverter();
+
+            bool goodGuess = false;
+
+            for (int i = 0; i < dpLetters.Children.Count; i++)
+            {
+                bdrLetterToGuess = (Border)dpLetters.Children[i];
+                lblLetterToGuessChild = (Label)bdrLetterToGuess.Child;
+                if ((string)lblPressedLetter.Content == (string)lblLetterToGuessChild.Content)
+                {
+                    bdrPressedLetter.Background = (Brush)bc.ConvertFrom("#00E676");
+                    bdrLetterToGuess.Background = (Brush)bc.ConvertFrom("#FAFAFA");
+                    lblLetterToGuessChild.Opacity = 1;
+                    goodGuess = true;
+                } 
+                else if (goodGuess == false)
+                {
+                    bdrPressedLetter.Background = Brushes.Red;
+                }
+            }
         }
     }
 }
