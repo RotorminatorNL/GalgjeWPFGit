@@ -10,9 +10,6 @@
     <None Update="wordListDataSet.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Update="wordListDataSet1.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">

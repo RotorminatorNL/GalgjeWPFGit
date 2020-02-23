@@ -12,21 +12,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>wordListDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Update="wordListDataSet1.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>wordListDataSet1.xsd</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="wordListDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>wordListDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Update="wordListDataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>wordListDataSet1.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
