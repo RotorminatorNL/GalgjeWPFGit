@@ -30,8 +30,8 @@
         </Border>
 
         <!-- Input field -->
-        <Label Content="Klik hieronder op een letter" FontSize="40" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Century Gothic"/>
-        <Border Background="#795548" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,100" Padding="50" CornerRadius="20">
+        <Label Content="Klik hieronder op een letter" FontSize="40" Margin="0,0,0,150" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Century Gothic"/>
+        <Border Background="#795548" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,200" Padding="50" CornerRadius="20">
             <Grid Name="grdChooseLetter">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
@@ -50,6 +50,96 @@
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
+            </Grid>
+        </Border>
+        
+        <!-- The hangman -->
+        <Border Background="#EEEEEE" BorderBrush="#757575" BorderThickness="2" CornerRadius="20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="300" Height="600" Margin="0,0,90,50">
+            <Grid Name="grdHangman">
+                <Rectangle Fill="#5D4037" Name="rctStick_1" Height="10" Width="200" VerticalAlignment="Bottom" Margin="0,0,0,25"/>
+                <Rectangle Fill="#5D4037" Name="rctStick_2" Height="540" Width="10" HorizontalAlignment="Left" Margin="75,00,0,0"/>
+                <Rectangle Fill="#5D4037" Name="rctStick_3" Height="10" Width="200" VerticalAlignment="Top" Margin="0,25,0,0"/>
+                <Rectangle Fill="#5D4037" Name="rctStick_4" Height="10" Width="100" VerticalAlignment="Top" Margin="0,60,65,0" RenderTransformOrigin="0.5,0.5">
+                    <Rectangle.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-45"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Rectangle.RenderTransform>
+                </Rectangle>
+                <Rectangle Fill="#875638" Name="rctRope_5" Height="80" Width="10" VerticalAlignment="Top" Margin="100,34,0,0"/>
+                <Ellipse Fill="#FDD9B5" Name="elpBody_7" Stroke="#EAC592" StrokeThickness="2" Height="250" Width="75" Margin="100,0,0,130"/>
+                <Ellipse Fill="#FDD9B5" Name="elpHead_6" Stroke="#EAC592" StrokeThickness="2" Height="75" Width="75" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,75,30,0"/>
+                <Path Name="pthArm_8" Stroke="#FDD9B5" StrokeThickness="10">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigureCollection>
+                                    <PathFigure StartPoint="150,300">
+                                        <PathFigure.Segments>
+                                            <PathSegmentCollection>
+                                                <QuadraticBezierSegment Point1="155,100" Point2="190,150" />
+                                            </PathSegmentCollection>
+                                        </PathFigure.Segments>
+                                    </PathFigure>
+                                </PathFigureCollection>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Path Name="pthArm_9" Stroke="#FDD9B5" StrokeThickness="10">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigureCollection>
+                                    <PathFigure StartPoint="245,300">
+                                        <PathFigure.Segments>
+                                            <PathSegmentCollection>
+                                                <QuadraticBezierSegment Point1="250,200" Point2="220,160" />
+                                            </PathSegmentCollection>
+                                        </PathFigure.Segments>
+                                    </PathFigure>
+                                </PathFigureCollection>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Path Name="pthLeg_10" Stroke="#FDD9B5" StrokeThickness="10">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigureCollection>
+                                    <PathFigure StartPoint="180,500">
+                                        <PathFigure.Segments>
+                                            <PathSegmentCollection>
+                                                <QuadraticBezierSegment Point1="180,400" Point2="190,340" />
+                                            </PathSegmentCollection>
+                                        </PathFigure.Segments>
+                                    </PathFigure>
+                                </PathFigureCollection>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Path Name="pthLeg_11" Stroke="#FDD9B5" StrokeThickness="10">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigureCollection>
+                                    <PathFigure StartPoint="210,500">
+                                        <PathFigure.Segments>
+                                            <PathSegmentCollection>
+                                                <QuadraticBezierSegment Point1="210,400" Point2="200,340" />
+                                            </PathSegmentCollection>
+                                        </PathFigure.Segments>
+                                    </PathFigure>
+                                </PathFigureCollection>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
             </Grid>
         </Border>
     </Grid>
