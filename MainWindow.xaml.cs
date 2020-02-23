@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
+using Path = System.Windows.Shapes.Path;
 
 namespace GalgjeWPF
 {
@@ -225,6 +227,8 @@ namespace GalgjeWPF
         {
             Border bdrPressedLetter = (Border)sender;
             Label lblPressedLetter = (Label)bdrPressedLetter.Child;
+            Border bdrLetterToGuess;
+            Label lblLetterToGuess;
 
             var bc = new BrushConverter();
 
@@ -232,21 +236,59 @@ namespace GalgjeWPF
 
             for (int i = 0; i < dpLetters.Children.Count; i++)
             {
-                Border bdrLetterToGuess = (Border)dpLetters.Children[i];
-                Label lblLetterToGuessChild = (Label)bdrLetterToGuess.Child;
+                bdrLetterToGuess = (Border)dpLetters.Children[i];
+                lblLetterToGuess = (Label)bdrLetterToGuess.Child;
 
-                if ((string)lblPressedLetter.Content == (string)lblLetterToGuessChild.Content)
+                if ((string)lblPressedLetter.Content == (string)lblLetterToGuess.Content)
                 {
                     bdrPressedLetter.Background = (Brush)bc.ConvertFrom("#00E676");
                     bdrLetterToGuess.Background = (Brush)bc.ConvertFrom("#FAFAFA");
-                    lblLetterToGuessChild.Opacity = 1;
+                    lblLetterToGuess.Opacity = 1;
                     bGoodGuess = true;
                     WordGuessed();
                 } 
-                else if (bGoodGuess == false)
+            }
+
+            if (bGoodGuess == false)
+            {
+                if (bdrPressedLetter.Background != Brushes.Red)
                 {
                     bdrPressedLetter.Background = Brushes.Red;
+                    HangmanProgress();
                 }
+            }
+        }
+
+        /// <summary>
+        /// This function shows the progression of the hangman per mistake
+        /// </summary>
+        public void HangmanProgress()
+        {
+            int iRedLetters = -1;
+
+            for (int i = 0; i < grdChooseLetter.Children.Count; i++)
+            {
+                Border bdrLetter = (Border)grdChooseLetter.Children[i];
+                if (bdrLetter.Background == Brushes.Red)
+                {
+                    iRedLetters++;
+                }
+            }
+
+            if (iRedLetters < 5 && iRedLetters != -1)
+            {
+                Rectangle rect = (Rectangle)grdHangman.Children[iRedLetters];
+                rect.Opacity = 1;
+            }
+            else if (iRedLetters < 7 && iRedLetters != -1)
+            {
+                Ellipse elp = (Ellipse)grdHangman.Children[iRedLetters];
+                elp.Opacity = 1;
+            }
+            else if (iRedLetters != -1)
+            {
+                Path pth = (Path)grdHangman.Children[iRedLetters];
+                pth.Opacity = 1;
             }
         }
 
@@ -260,9 +302,9 @@ namespace GalgjeWPF
             for (int i = 0; i < dpLetters.Children.Count; i++)
             {
                 Border bdrLetterToGuess = (Border)dpLetters.Children[i];
-                Label lblLetterToGuessChild = (Label)bdrLetterToGuess.Child;
+                Label lblLetterToGuess = (Label)bdrLetterToGuess.Child;
 
-                if (lblLetterToGuessChild.Opacity == 1)
+                if (lblLetterToGuess.Opacity == 1)
                 {
                     iGoodGuess++;
                 }
@@ -284,6 +326,25 @@ namespace GalgjeWPF
                 Border bdrChooseLetters = (Border)grdChooseLetter.Children[i];
 
                 bdrChooseLetters.Background = (Brush)bc.ConvertFrom("#BDBDBD");
+            }
+
+            for (int i = 0; i < grdHangman.Children.Count; i++)
+            {
+                if (i < 5)
+                {
+                    Rectangle rect = (Rectangle)grdHangman.Children[i];
+                    rect.Opacity = 0;
+                }
+                else if (i < 7)
+                {
+                    Ellipse elp = (Ellipse)grdHangman.Children[i];
+                    elp.Opacity = 0;
+                }
+                else
+                {
+                    Path pth = (Path)grdHangman.Children[i];
+                    pth.Opacity = 0;
+                }
             }
 
             dpLetters.Children.Clear();
