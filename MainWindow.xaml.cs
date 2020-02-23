@@ -32,7 +32,7 @@ namespace GalgjeWPF
             // The string pathWordListFile stores the path to wordList.txt
             string pathWordListFile = $"{Directory.GetCurrentDirectory()}\\..\\..\\..\\assets\\wordList.txt";
 
-            // The List<string> wordList stores everything inside wordList.txt and splits it on the ','.
+            // The List<string> wordList stores everything inside wordList.txt and splits it on the ', '.
             List<string> wordList = File.ReadAllText(pathWordListFile).Split(", ", StringSplitOptions.RemoveEmptyEntries).ToList();
 
             // Storing every word in WordCollection
