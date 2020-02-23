@@ -289,6 +289,12 @@ namespace GalgjeWPF
             {
                 Path pth = (Path)grdHangman.Children[iRedLetters];
                 pth.Opacity = 1;
+
+                if (iRedLetters == (grdHangman.Children.Count - 1))
+                {
+                    MessageBox.Show("Je bent dood!");
+                    ResetGame();
+                }
             }
         }
 
@@ -317,6 +323,9 @@ namespace GalgjeWPF
             }
         }
 
+        /// <summary>
+        /// This function resets the game
+        /// </summary>
         public void ResetGame()
         {
             var bc = new BrushConverter();
