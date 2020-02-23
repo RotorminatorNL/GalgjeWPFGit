@@ -226,29 +226,69 @@ namespace GalgjeWPF
             Border bdrPressedLetter = (Border)sender;
             Label lblPressedLetter = (Label)bdrPressedLetter.Child;
 
-            Border bdrLetterToGuess;
-            Label lblLetterToGuessChild;
-
             var bc = new BrushConverter();
 
-            bool goodGuess = false;
+            bool bGoodGuess = false;
 
             for (int i = 0; i < dpLetters.Children.Count; i++)
             {
-                bdrLetterToGuess = (Border)dpLetters.Children[i];
-                lblLetterToGuessChild = (Label)bdrLetterToGuess.Child;
+                Border bdrLetterToGuess = (Border)dpLetters.Children[i];
+                Label lblLetterToGuessChild = (Label)bdrLetterToGuess.Child;
+
                 if ((string)lblPressedLetter.Content == (string)lblLetterToGuessChild.Content)
                 {
                     bdrPressedLetter.Background = (Brush)bc.ConvertFrom("#00E676");
                     bdrLetterToGuess.Background = (Brush)bc.ConvertFrom("#FAFAFA");
                     lblLetterToGuessChild.Opacity = 1;
-                    goodGuess = true;
+                    bGoodGuess = true;
+                    WordGuessed();
                 } 
-                else if (goodGuess == false)
+                else if (bGoodGuess == false)
                 {
                     bdrPressedLetter.Background = Brushes.Red;
                 }
             }
+        }
+
+        /// <summary>
+        /// This function checks if the player has guessed the word and if he/she has a new game will start
+        /// </summary>
+        public void WordGuessed()
+        {
+            int iGoodGuess = 0;
+
+            for (int i = 0; i < dpLetters.Children.Count; i++)
+            {
+                Border bdrLetterToGuess = (Border)dpLetters.Children[i];
+                Label lblLetterToGuessChild = (Label)bdrLetterToGuess.Child;
+
+                if (lblLetterToGuessChild.Opacity == 1)
+                {
+                    iGoodGuess++;
+                }
+
+                if (iGoodGuess == dpLetters.Children.Count)
+                {
+                    MessageBox.Show("Je hebt het woord geraden!");
+                    ResetGame();
+                }
+            }
+        }
+
+        public void ResetGame()
+        {
+            var bc = new BrushConverter();
+
+            for (int i = 0; i < grdChooseLetter.Children.Count; i++)
+            {
+                Border bdrChooseLetters = (Border)grdChooseLetter.Children[i];
+
+                bdrChooseLetters.Background = (Brush)bc.ConvertFrom("#BDBDBD");
+            }
+
+            dpLetters.Children.Clear();
+
+            CreateGame();
         }
     }
 }
