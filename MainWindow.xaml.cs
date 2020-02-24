@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Path = System.Windows.Shapes.Path;
+using System.Data.OleDb;
 
 namespace GalgjeWPF
 {
@@ -16,7 +17,7 @@ namespace GalgjeWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         // WordCollection speaks for itself, you could call it the library of words.
         List<WordCollection> wordCollection = new List<WordCollection>();
 
@@ -33,7 +34,7 @@ namespace GalgjeWPF
             string pathWordListFile = $"{Directory.GetCurrentDirectory()}\\..\\..\\..\\assets\\wordList.txt";
 
             // The List<string> wordList stores everything inside wordList.txt and splits it on the ', '.
-            List<string> wordList = File.ReadAllText(pathWordListFile).Split(", ", StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> wordList = File.ReadAllText(pathWordListFile).Split("\r\n", StringSplitOptions.RemoveEmptyEntries).ToList();
 
             // Storing every word in WordCollection
             foreach (string word in wordList)
