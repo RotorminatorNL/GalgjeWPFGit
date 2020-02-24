@@ -294,6 +294,11 @@ namespace GalgjeWPF
                 if (iRedLetters == (grdHangman.Children.Count - 1))
                 {
                     MessageBox.Show("Je bent dood!");
+
+                    int iAmountBad = Convert.ToInt32(lblAmountBad.Content);
+                    iAmountBad++;
+                    lblAmountBad.Content = iAmountBad.ToString();
+
                     ResetGame();
                 }
             }
@@ -319,6 +324,9 @@ namespace GalgjeWPF
                 if (iGoodGuess == dpLetters.Children.Count)
                 {
                     MessageBox.Show("Je hebt het woord geraden!");
+                    int iAmountGood = Convert.ToInt32(lblAmountGood.Content);
+                    iAmountGood++;
+                    lblAmountGood.Content = iAmountGood.ToString();
                     ResetGame();
                 }
             }
