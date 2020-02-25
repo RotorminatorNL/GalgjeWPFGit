@@ -120,6 +120,7 @@ namespace GalgjeWPF
                     Background = (Brush)bc.ConvertFrom("#BDBDBD"),
                     BorderBrush = (Brush)bc.ConvertFrom("#757575"),
                     BorderThickness = new Thickness(2),
+                    Cursor = Cursors.Hand,
                     CornerRadius = new CornerRadius(10),
                     Height = 80,
                     Width = 80,
@@ -396,13 +397,16 @@ namespace GalgjeWPF
 
                 if (iRedLetters == (grdHangman.Children.Count - 1))
                 {
-                    MessageBox.Show("Je bent dood!");
+                    bdrInfo.Background = Brushes.Red;
+                    lblInfo.Content = "Oh nee! Je hebt het woord niet geraden.";
+                    lblInfo.Foreground = Brushes.White;
 
                     int iAmountBad = Convert.ToInt32(lblAmountBad.Content);
                     iAmountBad++;
                     lblAmountBad.Content = iAmountBad.ToString();
 
-                    ResetGame();
+                    bdrNextGame.Cursor = Cursors.Hand;
+                    bdrNextGame.Opacity = 1;
                 }
             }
         }
@@ -412,6 +416,7 @@ namespace GalgjeWPF
         /// </summary>
         public void WordGuessed()
         {
+            var bc = new BrushConverter();
             int iGoodGuess = 0;
 
             for (int i = 0; i < dpLetters.Children.Count; i++)
@@ -426,11 +431,16 @@ namespace GalgjeWPF
 
                 if (iGoodGuess == dpLetters.Children.Count)
                 {
-                    MessageBox.Show("Je hebt het woord geraden!");
+                    bdrInfo.Background = (Brush)bc.ConvertFrom("#00E676");
+                    lblInfo.Content = "Heel goed! Je hebt het woord geraden.";
+                    lblInfo.Foreground = Brushes.White;
+
                     int iAmountGood = Convert.ToInt32(lblAmountGood.Content);
                     iAmountGood++;
                     lblAmountGood.Content = iAmountGood.ToString();
-                    ResetGame();
+
+                    bdrNextGame.Cursor = Cursors.Hand;
+                    bdrNextGame.Opacity = 1;
                 }
             }
         }
@@ -472,7 +482,62 @@ namespace GalgjeWPF
 
             dpLetters.Children.Clear();
 
+            bdrNextGame.Cursor = Cursors.Arrow;
+            bdrNextGame.Opacity = 0.5;
+
             CreateGame();
+        }
+
+        public bool IsGameOver()
+        {
+            int iGoodGuess = 0;
+            int iRedLetters = -1;
+
+            for (int i = 0; i < dpLetters.Children.Count; i++)
+            {
+                Border bdrLetterToGuess = (Border)dpLetters.Children[i];
+                Label lblLetterToGuess = (Label)bdrLetterToGuess.Child;
+
+                if (lblLetterToGuess.Opacity == 1)
+                {
+                    iGoodGuess++;
+                }
+            }
+
+            if (iGoodGuess == dpLetters.Children.Count)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < grdChooseLetter.Children.Count; i++)
+            {
+                Border bdrLetter = (Border)grdChooseLetter.Children[i];
+                if (bdrLetter.Background == Brushes.Red)
+                {
+                    iRedLetters++;
+                }
+            }
+
+            if (iRedLetters == (grdHangman.Children.Count - 1))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void bdrNextGame_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            bool bIsGameOver = IsGameOver();
+            if (bIsGameOver)
+            {
+                ResetGame();
+            }
+        }
+
+        private void bdrStop_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

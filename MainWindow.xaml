@@ -46,10 +46,20 @@
             </StackPanel>
         </Border>
 
-        <!-- Result -->
-        <Border Background="#FBC02D" Height="80" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" CornerRadius="10">
-            <Label Content="Klik op een letter om te beginnen" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <!-- Info -->
+        <Border Name="bdrInfo" Background="#FBC02D" Height="80" Width="900" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150" CornerRadius="10">
+            <Label Name="lblInfo" Content="Klik op een letter om te beginnen" FontFamily="Century Gothic" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
+        
+        <!-- After game options -->
+        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,0,0" Width="900">
+            <Border Name="bdrNextGame" Background="#1DE9B6" CornerRadius="10" Height="60" Width="350" HorizontalAlignment="Left" MouseLeftButtonDown="bdrNextGame_MouseLeftButtonDown" Opacity="0.5">
+                <Label Content="Nog een keer!" Foreground="White" FontFamily="Century Gothic" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <Border Name="bdrStop" Background="#D50000" Cursor="Hand" CornerRadius="10" Height="60" Width="350" HorizontalAlignment="Right" MouseLeftButtonUp="bdrStop_MouseLeftButtonUp">
+                <Label Content="Stoppen?" Foreground="White" FontFamily="Century Gothic" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </DockPanel>
         
         <!-- Input field -->
         <Border Background="#795548" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,50" Padding="50" CornerRadius="20">
