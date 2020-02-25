@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Path = System.Windows.Shapes.Path;
 using System.Data.OleDb;
+using System.Windows.Media.Animation;
 
 namespace GalgjeWPF
 {
@@ -50,71 +51,6 @@ namespace GalgjeWPF
             CreateGame();
         }
 
-        /// <summary>
-        /// This function will generate the letters (which you'll press to guess) on screen
-        /// </summary>
-        public void CreateLetters()
-        {
-            string[] alphabet = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-            int column = 0;
-            int lastColumn = 2;
-
-            Border newBorder;
-            Label newLabel;
-            var bc = new BrushConverter();
-
-            for (int i = 0; i < alphabet.Length; i++)
-            {
-                newLabel = new Label
-                {
-                    Content = alphabet[i],
-                    FontFamily = new FontFamily("Century Gothic"),
-                    FontSize = 50,
-                    Padding = new Thickness(0)
-                };
-
-                newLabel.SetValue(HorizontalContentAlignmentProperty, HorizontalAlignment.Center);
-                newLabel.SetValue(VerticalContentAlignmentProperty, VerticalAlignment.Center);
-
-                newBorder = new Border
-                {
-                    Name = $"letter_{alphabet[i]}",
-                    Background = (Brush)bc.ConvertFrom("#BDBDBD"),
-                    BorderBrush = (Brush)bc.ConvertFrom("#757575"),
-                    BorderThickness = new Thickness(2),
-                    CornerRadius = new CornerRadius(10),
-                    Height = 75,
-                    Width = 75,
-                    Margin = new Thickness(10),
-                    Child = newLabel
-                };
-
-                if (column == 10)
-                {
-                    column = 0;
-                }
-
-                if (i < 10)
-                {
-                    Grid.SetColumn(newBorder, column++);
-                    Grid.SetRow(newBorder, 0);
-                }
-                else if (i < 20)
-                {
-                    Grid.SetColumn(newBorder, column++);
-                    Grid.SetRow(newBorder, 1);
-                } else
-                {
-                    Grid.SetColumn(newBorder, lastColumn++);
-                    Grid.SetRow(newBorder, 2);
-                }
-
-                newBorder.MouseLeftButtonUp += new MouseButtonEventHandler(PressedLetter);
-
-                grdChooseLetter.Children.Add(newBorder);
-            }
-        }
-
         // Begin BtnClose (customized close button (because the default one is ugly))
         private void BtnClose_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -151,6 +87,212 @@ namespace GalgjeWPF
             txtMinimize.Foreground = Brushes.LightGray;
         }
         // End BtnMinimize
+
+        /// <summary>
+        /// This function will generate the playing letters (which you'll press to guess) on screen
+        /// </summary>
+        public void CreateLetters()
+        {
+            string[] alphabet = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+            int column = 0;
+            int lastColumn = 2;
+
+            Border newBorder;
+            Label newLabel;
+            var bc = new BrushConverter();
+
+            for (int i = 0; i < alphabet.Length; i++)
+            {
+                newLabel = new Label
+                {
+                    Content = alphabet[i],
+                    FontFamily = new FontFamily("Century Gothic"),
+                    FontSize = 50,
+                    Padding = new Thickness(0)
+                };
+
+                newLabel.SetValue(HorizontalContentAlignmentProperty, HorizontalAlignment.Center);
+                newLabel.SetValue(VerticalContentAlignmentProperty, VerticalAlignment.Center);
+
+                newBorder = new Border
+                {
+                    Name = $"letter_{alphabet[i]}",
+                    Background = (Brush)bc.ConvertFrom("#BDBDBD"),
+                    BorderBrush = (Brush)bc.ConvertFrom("#757575"),
+                    BorderThickness = new Thickness(2),
+                    CornerRadius = new CornerRadius(10),
+                    Height = 80,
+                    Width = 80,
+                    Margin = new Thickness(10),
+                    Child = newLabel
+                };
+
+                if (column == 10)
+                {
+                    column = 0;
+                }
+
+                if (i < 10)
+                {
+                    Grid.SetColumn(newBorder, column++);
+                    Grid.SetRow(newBorder, 0);
+                }
+                else if (i < 20)
+                {
+                    Grid.SetColumn(newBorder, column++);
+                    Grid.SetRow(newBorder, 1);
+                } else
+                {
+                    Grid.SetColumn(newBorder, lastColumn++);
+                    Grid.SetRow(newBorder, 2);
+                }
+
+                newBorder.MouseEnter += new MouseEventHandler(MouseEnterLetter);
+                newBorder.MouseLeave += new MouseEventHandler(MouseLeaveLetter);
+                newBorder.MouseLeftButtonUp += new MouseButtonEventHandler(PressedLetter);
+
+                grdChooseLetter.Children.Add(newBorder);
+            }
+        }
+
+        /// <summary>
+        /// This function will change the state of the playing letter
+        /// </summary>
+        public void MouseEnterLetter(object sender, EventArgs e)
+        {
+            Border bdrPlayingLetter = (Border)sender;
+            Label lblPlayingLetter = (Label)bdrPlayingLetter.Child;
+            var bc = new BrushConverter();
+
+            DoubleAnimation da = new DoubleAnimation
+            {
+                From = 80,
+                To = 90,
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
+
+            DoubleAnimation daFontSize = new DoubleAnimation
+            {
+                From = 50,
+                To = 60,
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
+
+            ThicknessAnimation ta = new ThicknessAnimation
+            {
+                From = new Thickness(10),
+                To = new Thickness(5),
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
+
+
+            if (bdrPlayingLetter.Background == Brushes.Red)
+            {
+                // Do no thing
+            }
+            else if(bdrPlayingLetter.Background.ToString() == "#FF00E676")
+            {
+                // Do no thing
+            }
+            else
+            {
+                bdrPlayingLetter.Background = (Brush)bc.ConvertFrom("#EEEEEE");
+                bdrPlayingLetter.BeginAnimation(Border.HeightProperty, da);
+                bdrPlayingLetter.BeginAnimation(Border.WidthProperty, da);
+                bdrPlayingLetter.BeginAnimation(Border.MarginProperty, ta);
+
+                lblPlayingLetter.BeginAnimation(Label.FontSizeProperty, daFontSize);
+            }
+        }
+
+        /// <summary>
+        /// This function will reset the state of the playing letter
+        /// </summary>
+        public void MouseLeaveLetter(object sender, EventArgs e)
+        {
+            Border bdrPlayingLetter = (Border)sender;
+            Label lblPlayingLetter = (Label)bdrPlayingLetter.Child;
+            var bc = new BrushConverter();
+
+            DoubleAnimation da = new DoubleAnimation
+            {
+                From = 90,
+                To = 80,
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
+
+            DoubleAnimation daFontSize = new DoubleAnimation
+            {
+                From = 60,
+                To = 50,
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
+
+            ThicknessAnimation ta = new ThicknessAnimation
+            {
+                From = new Thickness(5),
+                To = new Thickness(10),
+                Duration = TimeSpan.FromMilliseconds(100)
+            };
+
+            if (bdrPlayingLetter.Background == Brushes.Red && bdrPlayingLetter.Width != 80 || bdrPlayingLetter.Background.ToString() == "#FF00E676" && bdrPlayingLetter.Width != 80)
+            {
+                bdrPlayingLetter.BeginAnimation(Border.HeightProperty, da);
+                bdrPlayingLetter.BeginAnimation(Border.WidthProperty, da);
+                bdrPlayingLetter.BeginAnimation(Border.MarginProperty, ta);
+
+                lblPlayingLetter.BeginAnimation(Label.FontSizeProperty, daFontSize);
+            }
+            else if (bdrPlayingLetter.Background != Brushes.Red && bdrPlayingLetter.Background.ToString() != "#FF00E676")
+            {
+                bdrPlayingLetter.Background = (Brush)bc.ConvertFrom("#BDBDBD");
+                bdrPlayingLetter.BeginAnimation(Border.HeightProperty, da);
+                bdrPlayingLetter.BeginAnimation(Border.WidthProperty, da);
+                bdrPlayingLetter.BeginAnimation(Border.MarginProperty, ta);
+
+                lblPlayingLetter.BeginAnimation(Label.FontSizeProperty, daFontSize);
+            }
+        }
+
+        /// <summary>
+        /// This function will be activated if the player presses one of the generated playing letters
+        /// </summary>
+        public void PressedLetter(object sender, EventArgs e)
+        {
+            Border bdrPressedLetter = (Border)sender;
+            Label lblPressedLetter = (Label)bdrPressedLetter.Child;
+            Border bdrLetterToGuess;
+            Label lblLetterToGuess;
+
+            var bc = new BrushConverter();
+
+            bool bGoodGuess = false;
+
+            for (int i = 0; i < dpLetters.Children.Count; i++)
+            {
+                bdrLetterToGuess = (Border)dpLetters.Children[i];
+                lblLetterToGuess = (Label)bdrLetterToGuess.Child;
+
+                if ((string)lblPressedLetter.Content == (string)lblLetterToGuess.Content)
+                {
+                    bdrPressedLetter.Background = (Brush)bc.ConvertFrom("#00E676");
+                    bdrLetterToGuess.Background = (Brush)bc.ConvertFrom("#FAFAFA");
+                    lblLetterToGuess.Opacity = 1;
+                    bGoodGuess = true;
+                    WordGuessed();
+                }
+            }
+
+            if (bGoodGuess == false)
+            {
+                if (bdrPressedLetter.Background != Brushes.Red)
+                {
+                    bdrPressedLetter.Background = Brushes.Red;
+                    lblPressedLetter.Opacity = 0.5;
+                    HangmanProgress();
+                }
+            }
+        }
 
         /// <summary>
         /// This function calls every function to create and start a game
@@ -218,45 +360,6 @@ namespace GalgjeWPF
                 };
 
                 dpLetters.Children.Add(newBorder);
-            }
-        }
-
-        /// <summary>
-        /// This function will be activated if the player presses one of the generated letters
-        /// </summary>
-        public void PressedLetter(object sender, EventArgs e)
-        {
-            Border bdrPressedLetter = (Border)sender;
-            Label lblPressedLetter = (Label)bdrPressedLetter.Child;
-            Border bdrLetterToGuess;
-            Label lblLetterToGuess;
-
-            var bc = new BrushConverter();
-
-            bool bGoodGuess = false;
-
-            for (int i = 0; i < dpLetters.Children.Count; i++)
-            {
-                bdrLetterToGuess = (Border)dpLetters.Children[i];
-                lblLetterToGuess = (Label)bdrLetterToGuess.Child;
-
-                if ((string)lblPressedLetter.Content == (string)lblLetterToGuess.Content)
-                {
-                    bdrPressedLetter.Background = (Brush)bc.ConvertFrom("#00E676");
-                    bdrLetterToGuess.Background = (Brush)bc.ConvertFrom("#FAFAFA");
-                    lblLetterToGuess.Opacity = 1;
-                    bGoodGuess = true;
-                    WordGuessed();
-                } 
-            }
-
-            if (bGoodGuess == false)
-            {
-                if (bdrPressedLetter.Background != Brushes.Red)
-                {
-                    bdrPressedLetter.Background = Brushes.Red;
-                    HangmanProgress();
-                }
             }
         }
 
@@ -341,9 +444,11 @@ namespace GalgjeWPF
 
             for (int i = 0; i < grdChooseLetter.Children.Count; i++)
             {
-                Border bdrChooseLetters = (Border)grdChooseLetter.Children[i];
+                Border bdrPlayingLetters = (Border)grdChooseLetter.Children[i];
+                Label lblPlayingLetters = (Label)bdrPlayingLetters.Child;
 
-                bdrChooseLetters.Background = (Brush)bc.ConvertFrom("#BDBDBD");
+                bdrPlayingLetters.Background = (Brush)bc.ConvertFrom("#BDBDBD");
+                lblPlayingLetters.Opacity = 1;
             }
 
             for (int i = 0; i < grdHangman.Children.Count; i++)
