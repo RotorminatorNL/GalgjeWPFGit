@@ -419,7 +419,7 @@ namespace GalgjeWPF
         /// <summary>
         /// This function checks if the player has guessed the word and if he/she has a new game will start
         /// </summary>
-        public async void WordGuessed()
+        public void WordGuessed()
         {
             var bc = new BrushConverter();
             int iGoodGuess = 0;
