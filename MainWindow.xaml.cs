@@ -10,6 +10,7 @@ using System.Windows.Shapes;
 using Path = System.Windows.Shapes.Path;
 using System.Data.OleDb;
 using System.Windows.Media.Animation;
+using System.Threading.Tasks;
 
 namespace GalgjeWPF
 {
@@ -418,7 +419,7 @@ namespace GalgjeWPF
         /// <summary>
         /// This function checks if the player has guessed the word and if he/she has a new game will start
         /// </summary>
-        public void WordGuessed()
+        public async void WordGuessed()
         {
             var bc = new BrushConverter();
             int iGoodGuess = 0;
@@ -446,6 +447,20 @@ namespace GalgjeWPF
                     bdrNextGame.Cursor = Cursors.Hand;
                     bdrNextGame.Opacity = 1;
                 }
+            }
+            if (iGoodGuess == dpLetters.Children.Count)
+            {
+                for(int i = 0; i < dpLetters.Children.Count; i++)
+                {
+                    Border bdrLetterToGuess = (Border)dpLetters.Children[i];
+                    ThicknessAnimation ta = new ThicknessAnimation
+                    {
+                        From = new Thickness(15,0,15,0),
+                        To = new Thickness(0),
+                        Duration = TimeSpan.FromSeconds(1)
+                    };
+                    bdrLetterToGuess.BeginAnimation(MarginProperty, ta);
+                } 
             }
         }
 
