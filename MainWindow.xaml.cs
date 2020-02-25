@@ -300,6 +300,10 @@ namespace GalgjeWPF
         /// </summary>
         public void CreateGame()
         {
+            var bc = new BrushConverter();
+            bdrInfo.Background = (Brush)bc.ConvertFrom("#FBC02D");
+            lblInfo.Content = "Klik op een letter om te beginnen";
+
             // rndWord is only here to keep it clean.
             string rndWord = wordCollection[rnd.Next(0, (wordCollection.Count - 1))].Word;
 
