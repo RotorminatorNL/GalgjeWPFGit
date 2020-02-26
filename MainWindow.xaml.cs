@@ -267,31 +267,34 @@ namespace GalgjeWPF
             Label lblLetterToGuess;
 
             var bc = new BrushConverter();
-
             bool bGoodGuess = false;
+            bool bIsGameOver = IsGameOver();
 
-            for (int i = 0; i < dpLetters.Children.Count; i++)
+            if (!bIsGameOver)
             {
-                bdrLetterToGuess = (Border)dpLetters.Children[i];
-                lblLetterToGuess = (Label)bdrLetterToGuess.Child;
-
-                if ((string)lblPressedLetter.Content == (string)lblLetterToGuess.Content)
+                for (int i = 0; i < dpLetters.Children.Count; i++)
                 {
-                    bdrPressedLetter.Background = (Brush)bc.ConvertFrom("#00E676");
-                    bdrLetterToGuess.Background = (Brush)bc.ConvertFrom("#FAFAFA");
-                    lblLetterToGuess.Opacity = 1;
-                    bGoodGuess = true;
-                    WordGuessed();
+                    bdrLetterToGuess = (Border)dpLetters.Children[i];
+                    lblLetterToGuess = (Label)bdrLetterToGuess.Child;
+
+                    if ((string)lblPressedLetter.Content == (string)lblLetterToGuess.Content)
+                    {
+                        bdrPressedLetter.Background = (Brush)bc.ConvertFrom("#00E676");
+                        bdrLetterToGuess.Background = (Brush)bc.ConvertFrom("#FAFAFA");
+                        lblLetterToGuess.Opacity = 1;
+                        bGoodGuess = true;
+                        WordGuessed();
+                    }
                 }
-            }
 
-            if (bGoodGuess == false)
-            {
-                if (bdrPressedLetter.Background != Brushes.Red)
+                if (bGoodGuess == false)
                 {
-                    bdrPressedLetter.Background = Brushes.Red;
-                    lblPressedLetter.Opacity = 0.5;
-                    HangmanProgress();
+                    if (bdrPressedLetter.Background != Brushes.Red)
+                    {
+                        bdrPressedLetter.Background = Brushes.Red;
+                        lblPressedLetter.Opacity = 0.5;
+                        HangmanProgress();
+                    }
                 }
             }
         }
@@ -507,6 +510,10 @@ namespace GalgjeWPF
             CreateGame();
         }
 
+        /// <summary>
+        /// This function checks if the player is still guessing or guessed or failed to guess the word
+        /// </summary>
+        /// <returns>False = the player is still guessing; True = the player guessed or failed to guess the word</returns>
         public bool IsGameOver()
         {
             int iGoodGuess = 0;
