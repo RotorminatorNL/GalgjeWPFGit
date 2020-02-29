@@ -10,19 +10,4 @@
     <PackageReference Include="System.Data.OleDb" Version="4.7.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="WordList.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>WordList.xsd</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="WordList.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>WordList.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
 </Project>
