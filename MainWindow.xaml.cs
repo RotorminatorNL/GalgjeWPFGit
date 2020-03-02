@@ -130,9 +130,7 @@ namespace GalgjeWPF
                 };
 
                 if (column == 10)
-                {
                     column = 0;
-                }
 
                 if (i < 10)
                 {
@@ -383,9 +381,7 @@ namespace GalgjeWPF
             {
                 Border bdrLetter = (Border)grdChooseLetter.Children[i];
                 if (bdrLetter.Background == Brushes.Red)
-                {
                     iRedLetters++;
-                }
             }
 
             if (iRedLetters < 5 && iRedLetters != -1)
@@ -433,9 +429,7 @@ namespace GalgjeWPF
                 Label lblLetterToGuess = (Label)bdrLetterToGuess.Child;
 
                 if (lblLetterToGuess.Opacity == 1)
-                {
                     iGoodGuess++;
-                }
 
                 if (iGoodGuess == dpLetters.Children.Count)
                 {
@@ -525,29 +519,21 @@ namespace GalgjeWPF
                 Label lblLetterToGuess = (Label)bdrLetterToGuess.Child;
 
                 if (lblLetterToGuess.Opacity == 1)
-                {
                     iGoodGuess++;
-                }
             }
 
             if (iGoodGuess == dpLetters.Children.Count)
-            {
                 return true;
-            }
 
             for (int i = 0; i < grdChooseLetter.Children.Count; i++)
             {
                 Border bdrLetter = (Border)grdChooseLetter.Children[i];
                 if (bdrLetter.Background == Brushes.Red)
-                {
                     iRedLetters++;
-                }
             }
 
             if (iRedLetters == (grdHangman.Children.Count - 1))
-            {
                 return true;
-            }
 
             return false;
         }
@@ -556,9 +542,7 @@ namespace GalgjeWPF
         {
             bool bIsGameOver = IsGameOver();
             if (bIsGameOver)
-            {
                 ResetGame();
-            }
         }
 
         private void bdrStop_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
