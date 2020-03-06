@@ -8,9 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Path = System.Windows.Shapes.Path;
-using System.Data.OleDb;
 using System.Windows.Media.Animation;
-using System.Threading.Tasks;
 
 namespace GalgjeWPF
 {
@@ -94,8 +92,7 @@ namespace GalgjeWPF
         /// </summary>
         public void CreateLetters()
         {
-            string[] alphabet = new string[] 
-            { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+            char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
             int column = 0;
             int lastColumn = 2;
@@ -104,11 +101,11 @@ namespace GalgjeWPF
             Label newLabel;
             var bc = new BrushConverter();
 
-            for (int i = 0; i < alphabet.Length; i++)
+            for (int i = 0; i < alpha.Length; i++)
             {
                 newLabel = new Label
                 {
-                    Content = alphabet[i],
+                    Content = alpha[i].ToString(),
                     FontFamily = new FontFamily("Century Gothic"),
                     FontSize = 50,
                     Padding = new Thickness(0)
@@ -119,7 +116,7 @@ namespace GalgjeWPF
 
                 newBorder = new Border
                 {
-                    Name = $"letter_{alphabet[i]}",
+                    Name = $"letter_{alpha[i].ToString()}",
                     Background = (Brush)bc.ConvertFrom("#BDBDBD"),
                     BorderBrush = (Brush)bc.ConvertFrom("#757575"),
                     BorderThickness = new Thickness(2),
