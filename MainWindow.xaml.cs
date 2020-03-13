@@ -123,8 +123,8 @@ namespace GalgjeWPF
                     BorderThickness = new Thickness(2),
                     Cursor = Cursors.Hand,
                     CornerRadius = new CornerRadius(10),
-                    Height = 80,
-                    Width = 80,
+                    Height = 85,
+                    Width = 85,
                     Margin = new Thickness(10),
                     Child = newLabel
                 };
@@ -168,8 +168,8 @@ namespace GalgjeWPF
 
             DoubleAnimation da = new DoubleAnimation
             {
-                From = 80,
-                To = 90,
+                From = 85,
+                To = 95,
                 Duration = TimeSpan.FromMilliseconds(100)
             };
 
@@ -218,8 +218,8 @@ namespace GalgjeWPF
 
             DoubleAnimation da = new DoubleAnimation
             {
-                From = 90,
-                To = 80,
+                From = 95,
+                To = 85,
                 Duration = TimeSpan.FromMilliseconds(100)
             };
 
@@ -237,7 +237,7 @@ namespace GalgjeWPF
                 Duration = TimeSpan.FromMilliseconds(100)
             };
 
-            if (bdrPlayingLetter.Background == Brushes.Red && bdrPlayingLetter.Width != 80 || bdrPlayingLetter.Background.ToString() == "#FF00E676" && bdrPlayingLetter.Width != 80)
+            if (bdrPlayingLetter.Background == Brushes.Red && bdrPlayingLetter.Width != 85 || bdrPlayingLetter.Background.ToString() == "#FF00E676" && bdrPlayingLetter.Width != 85)
             {
                 bdrPlayingLetter.BeginAnimation(Border.HeightProperty, da);
                 bdrPlayingLetter.BeginAnimation(Border.WidthProperty, da);
