@@ -143,7 +143,8 @@ namespace GalgjeWPF
                 {
                     Grid.SetColumn(newBorder, column++);
                     Grid.SetRow(newBorder, 1);
-                } else
+                }
+                else
                 {
                     Grid.SetColumn(newBorder, lastColumn++);
                     Grid.SetRow(newBorder, 2);
@@ -192,7 +193,7 @@ namespace GalgjeWPF
             {
                 // Do no thing
             }
-            else if(bdrPlayingLetter.Background.ToString() == "#FF00E676")
+            else if (bdrPlayingLetter.Background.ToString() == "#FF00E676")
             {
                 // Do no thing
             }
@@ -350,7 +351,7 @@ namespace GalgjeWPF
                     Padding = new Thickness(0),
                     Opacity = 0
                 };
-            
+
                 newLabel.SetValue(HorizontalContentAlignmentProperty, HorizontalAlignment.Center);
                 newLabel.SetValue(VerticalContentAlignmentProperty, VerticalAlignment.Center);
 
@@ -415,6 +416,9 @@ namespace GalgjeWPF
 
                     bdrNextGame.Cursor = Cursors.Hand;
                     bdrNextGame.Opacity = 1;
+
+                    bdrShowWord.Cursor = Cursors.Hand;
+                    bdrShowWord.Opacity = 1;
                 }
             }
         }
@@ -453,17 +457,17 @@ namespace GalgjeWPF
             }
             if (iGoodGuess == dpLetters.Children.Count)
             {
-                for(int i = 0; i < dpLetters.Children.Count; i++)
+                for (int i = 0; i < dpLetters.Children.Count; i++)
                 {
                     Border bdrLetterToGuess = (Border)dpLetters.Children[i];
                     ThicknessAnimation ta = new ThicknessAnimation
                     {
-                        From = new Thickness(15,0,15,0),
+                        From = new Thickness(15, 0, 15, 0),
                         To = new Thickness(0),
                         Duration = TimeSpan.FromSeconds(1)
                     };
                     bdrLetterToGuess.BeginAnimation(MarginProperty, ta);
-                } 
+                }
             }
         }
 
@@ -506,6 +510,8 @@ namespace GalgjeWPF
 
             bdrNextGame.Cursor = Cursors.Arrow;
             bdrNextGame.Opacity = 0.5;
+            bdrShowWord.Cursor = Cursors.Arrow;
+            bdrShowWord.Opacity = 0;
 
             CreateGame();
         }
@@ -558,6 +564,26 @@ namespace GalgjeWPF
             if (bIsGameOver)
             {
                 ResetGame();
+            }
+        }
+
+        private void bdrShowWord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var bc = new BrushConverter();
+
+            bool bIsGameOver = IsGameOver();
+            if (bIsGameOver)
+            {
+                Border bdrLetterToGuess;
+                Label lblLetterToGuess;
+
+                for (int i = 0; i < dpLetters.Children.Count; i++)
+                {
+                    bdrLetterToGuess = (Border)dpLetters.Children[i];
+                    lblLetterToGuess = (Label)bdrLetterToGuess.Child;
+                    lblLetterToGuess.Opacity = 1;
+                    bdrLetterToGuess.Background = (Brush)bc.ConvertFrom("#FAFAFA");
+                }
             }
         }
 

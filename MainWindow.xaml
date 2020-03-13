@@ -47,14 +47,17 @@
         </Border>
 
         <!-- After game options -->
-        <DockPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,520" Width="1100">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,520" Width="1100">
             <Border Name="bdrNextGame" Background="#1DE9B6" CornerRadius="10" Height="60" Width="350" HorizontalAlignment="Left" MouseLeftButtonDown="bdrNextGame_MouseLeftButtonDown" Opacity="0.5">
                 <Label Content="Nog een keer!" Foreground="White" FontFamily="Century Gothic" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <Border Name="bdrShowWord" HorizontalAlignment="Center" Background="#E65100" CornerRadius="10" Height="60" Width="350" MouseLeftButtonDown="bdrShowWord_MouseLeftButtonDown" Opacity="0">
+                <Label Content="Laat het woord zien" Foreground="White" FontFamily="Century Gothic" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
             <Border Name="bdrStop" Background="#D50000" Cursor="Hand" CornerRadius="10" Height="60" Width="350" HorizontalAlignment="Right" MouseLeftButtonUp="bdrStop_MouseLeftButtonUp">
                 <Label Content="Stoppen?" Foreground="White" FontFamily="Century Gothic" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
-        </DockPanel>
+        </Grid>
 
         <!-- Info -->
         <Border Name="bdrInfo" Background="#FBC02D" Height="80" Width="1100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,420" CornerRadius="10">
