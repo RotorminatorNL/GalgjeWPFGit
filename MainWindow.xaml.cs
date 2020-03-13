@@ -8,9 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Path = System.Windows.Shapes.Path;
-using System.Data.OleDb;
 using System.Windows.Media.Animation;
-using System.Threading.Tasks;
 
 namespace GalgjeWPF
 {
@@ -94,7 +92,8 @@ namespace GalgjeWPF
         /// </summary>
         public void CreateLetters()
         {
-            string[] alphabet = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+            char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+
             int column = 0;
             int lastColumn = 2;
 
@@ -102,11 +101,11 @@ namespace GalgjeWPF
             Label newLabel;
             var bc = new BrushConverter();
 
-            for (int i = 0; i < alphabet.Length; i++)
+            for (int i = 0; i < alpha.Length; i++)
             {
                 newLabel = new Label
                 {
-                    Content = alphabet[i],
+                    Content = alpha[i].ToString(),
                     FontFamily = new FontFamily("Century Gothic"),
                     FontSize = 50,
                     Padding = new Thickness(0)
@@ -117,7 +116,7 @@ namespace GalgjeWPF
 
                 newBorder = new Border
                 {
-                    Name = $"letter_{alphabet[i]}",
+                    Name = $"letter_{alpha[i].ToString()}",
                     Background = (Brush)bc.ConvertFrom("#BDBDBD"),
                     BorderBrush = (Brush)bc.ConvertFrom("#757575"),
                     BorderThickness = new Thickness(2),
@@ -130,9 +129,7 @@ namespace GalgjeWPF
                 };
 
                 if (column == 10)
-                {
                     column = 0;
-                }
 
                 if (i < 10)
                 {
@@ -384,9 +381,7 @@ namespace GalgjeWPF
             {
                 Border bdrLetter = (Border)grdChooseLetter.Children[i];
                 if (bdrLetter.Background == Brushes.Red)
-                {
                     iRedLetters++;
-                }
             }
 
             if (iRedLetters < 5 && iRedLetters != -1)
@@ -437,9 +432,7 @@ namespace GalgjeWPF
                 Label lblLetterToGuess = (Label)bdrLetterToGuess.Child;
 
                 if (lblLetterToGuess.Opacity == 1)
-                {
                     iGoodGuess++;
-                }
 
                 if (iGoodGuess == dpLetters.Children.Count)
                 {
@@ -531,29 +524,21 @@ namespace GalgjeWPF
                 Label lblLetterToGuess = (Label)bdrLetterToGuess.Child;
 
                 if (lblLetterToGuess.Opacity == 1)
-                {
                     iGoodGuess++;
-                }
             }
 
             if (iGoodGuess == dpLetters.Children.Count)
-            {
                 return true;
-            }
 
             for (int i = 0; i < grdChooseLetter.Children.Count; i++)
             {
                 Border bdrLetter = (Border)grdChooseLetter.Children[i];
                 if (bdrLetter.Background == Brushes.Red)
-                {
                     iRedLetters++;
-                }
             }
 
             if (iRedLetters == (grdHangman.Children.Count - 1))
-            {
                 return true;
-            }
 
             return false;
         }
@@ -562,9 +547,7 @@ namespace GalgjeWPF
         {
             bool bIsGameOver = IsGameOver();
             if (bIsGameOver)
-            {
                 ResetGame();
-            }
         }
 
         private void bdrShowWord_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
